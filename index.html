@@ -3,60 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>معرض الصور</title>
-
-  <!-- دمج تصميم الثيم الجديد -->
-  <style>
-    /* تصميم عام */
-    body {
-      margin: 0;
-      background-color: #141414; /* خلفية داكنة */
-      color: #f5f5f1;           /* لون نص فاتح */
-      font-family: "Arial", sans-serif;
-      text-align: center;
-    }
-
-    /* عنوان الصفحة */
-    h1 {
-      padding: 20px;
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: #ff9900; /* لون برتقالي جذاب */
-      text-shadow: 1px 1px 2px black;
-    }
-
-    /* معرض الصور */
-    .gallery {
-      margin: 20px auto;
-      max-width: 900px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .gallery img {
-      max-width: 300px;
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      border: 3px solid #ff9900;
-      box-shadow: 0 0 10px #ff9900;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #ffcc66;
-    }
-  </style>
+  <title>Xarab - معرض الصور</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
 </head>
 <body>
-  <h1>معرض الصور</h1>
-  <div class="gallery">
-    <img src="https://files.catbox.moe/42er2x.jpeg" alt="وصف الصورة 1" />
-    <img src="https://files.catbox.moe/42er2x.jpeg" alt="وصف الصورة 2" />
-  </div>
+  <header class="navbar">
+    <div class="container">
+      <div class="logo">Xarab</div>
+      <div class="stats">
+        <div class="stat">
+          <i class="fa-solid fa-eye"></i> 123.4K
+        </div>
+        <div class="stat">
+          <i class="fa-solid fa-heart"></i> 9.8K
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h1>معرض الصور</h1>
+    <div class="gallery">
+      <img src="https://files.catbox.moe/42er2x.jpeg" alt="وصف الصورة 1" />
+      <img src="https://files.catbox.moe/42er2x.jpeg" alt="وصف الصورة 2" />
+    </div>
+  </main>
 </body>
 </html>
