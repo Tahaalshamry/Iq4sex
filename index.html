@@ -3,123 +3,111 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Xarab - معرض الصور</title>
+<title>Xarab Gallery</title>
 <style>
   body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     background: #121212;
     color: #eee;
-    overflow-y: scroll;
+    margin: 0; padding: 0;
   }
   header {
     position: sticky;
     top: 0;
     background: #1f1f1f;
-    padding: 1rem 2rem;
-    font-size: 1.6rem;
+    padding: 12px 20px;
+    font-size: 1.5rem;
     font-weight: bold;
-    letter-spacing: 2px;
-    color: #ff9900;
-    z-index: 100;
-    box-shadow: 0 2px 8px rgba(255,153,0,0.3);
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    z-index: 1000;
   }
   .gallery {
-    max-width: 960px;
-    margin: 1rem auto 3rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.3rem;
-    padding: 0 1rem;
+    max-width: 900px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
   }
-  .card {
+  .media-card {
+    position: relative;
     background: #222;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(255, 153, 0, 0.15);
+    border-radius: 15px;
+    box-shadow:
+      0 10px 15px rgba(0,0,0,0.4),
+      0 4px 6px rgba(0,0,0,0.3);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
   }
-  .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(255, 153, 0, 0.35);
+  .media-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      0 20px 25px rgba(0,0,0,0.6),
+      0 10px 10px rgba(0,0,0,0.4);
   }
-  .card img {
+  img, video {
     width: 100%;
-    height: 180px;
-    object-fit: cover;
     display: block;
-    border-bottom: 1px solid #333;
-    filter: drop-shadow(0 2px 6px rgba(255, 153, 0, 0.4));
-    border-radius: 20px 20px 0 0;
-    transition: filter 0.3s ease;
+    border-radius: 15px;
+    object-fit: cover;
   }
-  .card img:hover {
-    filter: drop-shadow(0 6px 10px rgba(255, 153, 0, 0.8));
-  }
-  .info {
-    padding: 0.8rem 1rem;
+  .info-bar {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    right: 10px;
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
-    color: #ccc;
-    user-select: none;
-  }
-  .info span {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .info span svg {
-    fill: #ff9900;
-    width: 18px;
-    height: 18px;
+    color: #ddd;
+    background: rgba(0,0,0,0.5);
+    padding: 6px 12px;
+    border-radius: 10px;
+    backdrop-filter: blur(6px);
   }
 </style>
 </head>
 <body>
-  <header>Xarab</header>
-  <main class="gallery" id="gallery"></main>
 
-<script>
-  const images = [
-    "https://files.catbox.moe/g0eps5.jpeg",
-    "https://files.catbox.moe/42er2x.jpeg",
-    "https://files.catbox.moe/qu8rzl.jpeg",
-    "https://files.catbox.moe/wywkdu.jpeg",
-    "https://files.catbox.moe/c75cf9.webp",
-    "https://files.catbox.moe/pvl5js.jpeg",
-    "https://files.catbox.moe/dqbuy7.jpeg",
-    "https://files.catbox.moe/0df9c9.jpeg",
-    "https://files.catbox.moe/7ac2pq.jpeg",
-    "https://files.catbox.moe/34ccz9.jpeg",
-    "https://files.catbox.moe/9jq7r2.jpeg",
-    "https://files.catbox.moe/y2odyx.jpeg",
-    "https://files.catbox.moe/2vc407.jpeg",
-    "https://files.catbox.moe/qrq01z.jpeg",
-    "https://files.catbox.moe/pdwb8t.jpeg",
-    "https://files.catbox.moe/y5jcie.jpeg",
-    "https://files.catbox.moe/h9ow8i.jpeg",
-    "https://files.catbox.moe/unitmu.jpeg",
-    "https://files.catbox.moe/s4z666.jpeg",
-    "https://files.catbox.moe/ra7ns3.jpeg",
-    "https://files.catbox.moe/5ss93n.jpeg"
-  ];
+<header>Xarab</header>
+<div class="gallery" id="gallery"></div>
 
-  const gallery = document.getElementById("gallery");
+<script type="module">
+  import { mediaItems } from './data.js';
 
-  images.forEach((src, i) => {
-    const card = document.createElement("div");
-    card.className = "card";
+  const gallery = document.getElementById('gallery');
 
-    card.innerHTML = `
-      <img src="${src}" alt="صورة ${i + 1}" loading="lazy" />
-      <div class="info">
-        <span>👁️ 1234</span>
-        <span>👍 567</span>
-      </div>
-    `;
+  mediaItems.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'media-card';
+
+    if (item.type === 'image') {
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.alt;
+      img.loading = 'lazy';
+      card.appendChild(img);
+    } else if (item.type === 'video') {
+      const video = document.createElement('video');
+      video.controls = true;
+      video.preload = 'none';  // تأجيل تحميل الفيديو
+      video.poster = 'https://files.catbox.moe/qrq01z.jpeg'; // صورة بديلاً قبل التشغيل
+      const source = document.createElement('source');
+      source.src = item.src;
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      card.appendChild(video);
+    }
+
+    // معلومات ثابتة
+    const info = document.createElement('div');
+    info.className = 'info-bar';
+    info.innerHTML = `<span>مشاهدات: 1234</span><span>لايكات: 567</span>`;
+    card.appendChild(info);
+
     gallery.appendChild(card);
   });
 </script>
+
 </body>
 </html>
