@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Xarab - معرض الصور والفيديو</title>
   <style>
     body {
@@ -28,30 +28,32 @@
     }
 
     .card {
-      background: #1c1c1c;
-      border-radius: 12px;
-      padding: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 12px;
       margin-bottom: 20px;
       width: 90%;
       max-width: 500px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
     }
 
     .card:hover {
-      transform: scale(1.02);
+      transform: scale(1.03);
     }
 
     .card img,
-    .card iframe {
+    .card video {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 12px;
+      display: block;
     }
 
     .info {
       display: flex;
       justify-content: space-between;
-      margin-top: 5px;
+      padding: 8px 4px 0;
       font-size: 14px;
       color: #ccc;
     }
@@ -62,58 +64,56 @@
   <div class="gallery" id="gallery"></div>
 
   <script>
-    const mediaData = [
-      { type: "image", url: "https://files.catbox.moe/g0eps5.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/42er2x.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/qu8rzl.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/wywkdu.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/c75cf9.webp" },
-      { type: "image", url: "https://files.catbox.moe/pvl5js.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/dqbuy7.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/0df9c9.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/7ac2pq.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/34ccz9.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/9jq7r2.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/y2odyx.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/2vc407.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/qrq01z.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/pdwb8t.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/y5jcie.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/h9ow8i.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/unitmu.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/s4z666.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/ra7ns3.jpeg" },
-      { type: "image", url: "https://files.catbox.moe/5ss93n.jpeg" },
-      {
-        type: "video",
-        url: "https://tahaalshamry.github.io/Iframe/embed.html?url=https%3A%2F%2Fxhamster.com%2Fvideos%2Froommate-loves-it-when-i-fuck-her-hard-anny-walker-xhexQpy%3Futm_source%3Dext_shared%26utm_medium%3Dreferral%26utm_campaign%3Dlink" // الصق هنا رابط فيديو YouTube المضمن
-      }
+    const media = [
+      { type: "image", src: "https://files.catbox.moe/g0eps5.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/42er2x.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/qu8rzl.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/wywkdu.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/c75cf9.webp" },
+      { type: "image", src: "https://files.catbox.moe/pvl5js.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/dqbuy7.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/0df9c9.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/7ac2pq.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/34ccz9.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/9jq7r2.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/y2odyx.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/2vc407.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/qrq01z.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/pdwb8t.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/y5jcie.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/h9ow8i.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/unitmu.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/s4z666.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/ra7ns3.jpeg" },
+      { type: "image", src: "https://files.catbox.moe/5ss93n.jpeg" },
+      { type: "video", src: "https://tahaalshamry.github.io/Iframe/embed.html?url=https%3A%2F%2Fxhamster.com%2Fvideos%2Froommate-loves-it-when-i-fuck-her-hard-anny-walker-xhexQpy%3Futm_source%3Dext_shared%26utm_medium%3Dreferral%26utm_campaign%3Dlink" }
     ];
 
     const gallery = document.getElementById("gallery");
 
-    mediaData.forEach(media => {
+    media.forEach(item => {
       const card = document.createElement("div");
       card.className = "card";
-
-      if (media.type === "image") {
+      if (item.type === "image") {
         card.innerHTML = `
-          <img src="${media.url}" loading="lazy">
+          <img src="${item.src}" loading="lazy" alt="Image" />
           <div class="info">
             <span>👍 1.2K</span>
             <span>👁️ 5.3K</span>
           </div>
         `;
-      } else if (media.type === "video") {
+      } else if (item.type === "video") {
         card.innerHTML = `
-          <iframe src="${media.url}" frameborder="0" allowfullscreen></iframe>
+          <video controls autoplay muted loop>
+            <source src="${item.src}" type="video/mpeg" />
+            متصفحك لا يدعم عرض الفيديو.
+          </video>
           <div class="info">
-            <span>👍 3.1K</span>
-            <span>👁️ 10.4K</span>
+            <span>👍 980</span>
+            <span>👁️ 3.4K</span>
           </div>
         `;
       }
-
       gallery.appendChild(card);
     });
   </script>
