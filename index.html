@@ -1,113 +1,62 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>Xarab - معرض الصور</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Xarab - معرض الفيديوهات</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #eee;
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #121212;
-      color: white;
-    }
-
-    header {
-      background-color: #1f1f1f;
-      padding: 15px 20px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    }
-
-    .gallery {
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+    header {
+      background-color: #ff9900;
+      width: 100%;
+      padding: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #000;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    main {
+      max-width: 900px;
+      width: 100%;
       padding: 20px;
     }
-
-    .media-card {
-      background-color: #1e1e1e;
-      margin: 20px 0;
-      padding: 10px;
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      padding-top: 25px;
+      height: 0;
+      margin-bottom: 30px;
       border-radius: 10px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-      width: 90%;
-      max-width: 500px;
-      transition: transform 0.3s;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(255,153,0,0.7);
     }
-
-    .media-card:hover {
-      transform: scale(1.02);
-    }
-
-    .media-card img {
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      border-radius: 8px;
-      display: block;
-      loading: lazy;
-    }
-
-    .meta {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 4px;
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    .meta span {
-      display: inline-flex;
-      align-items: center;
-    }
-
-    .meta span::before {
-      margin-left: 6px;
-    }
-
-    .views::before {
-      content: '👁️';
-    }
-
-    .likes::before {
-      content: '❤️';
+      height: 100%;
+      border: none;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-
-  <header>Xarab</header>
-
-  <div class="gallery" id="gallery"></div>
-
-  <script src="data.js"></script>
-  <script>
-    const container = document.getElementById("gallery");
-
-    mediaData.forEach((item, index) => {
-      if (item.type === "image") {
-        const card = document.createElement("div");
-        card.className = "media-card";
-
-        const img = document.createElement("img");
-        img.src = item.src;
-        img.alt = `صورة ${index + 1}`;
-        img.loading = "lazy";
-
-        const meta = document.createElement("div");
-        meta.className = "meta";
-        meta.innerHTML = `
-          <span class="views">${Math.floor(Math.random() * 1000)} مشاهدة</span>
-          <span class="likes">${Math.floor(Math.random() * 300)} إعجاب</span>
-        `;
-
-        card.appendChild(img);
-        card.appendChild(meta);
-        container.appendChild(card);
-      }
-    });
-  </script>
-
+  <header>Xarab - معرض الفيديوهات</header>
+  <main>
+    <div class="video-container">
+      <iframe src="https://www.pornhub.com/embed/68420206b5aa7" allowfullscreen scrolling="no"></iframe>
+    </div>
+  </main>
 </body>
 </html>
