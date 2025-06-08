@@ -5,6 +5,7 @@ body {
   color: #f5f5f1;
   font-family: "Arial", sans-serif;
   text-align: center;
+  overflow-x: hidden; /* يمنع التمرير الأفقي للصفحة */
 }
 
 /* شريط علوي (Navbar) */
@@ -54,28 +55,45 @@ h1 {
   text-shadow: 1px 1px 2px black;
 }
 
-/* معرض الصور */
+/* معرض الصور أفقي مع تمرير */
 .gallery {
-  margin: 20px auto 40px;
-  max-width: 900px;
   display: flex;
-  justify-content: center;
+  overflow-x: auto;
   gap: 20px;
-  flex-wrap: wrap;
+  padding: 10px 20px 40px;
+  max-width: 900px;
+  margin: 0 auto 40px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gallery::-webkit-scrollbar {
+  height: 10px;
+}
+
+.gallery::-webkit-scrollbar-thumb {
+  background-color: #ff9900;
+  border-radius: 10px;
+}
+
+.gallery::-webkit-scrollbar-track {
+  background-color: #222;
+  border-radius: 10px;
 }
 
 .gallery img {
-  max-width: 300px;
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+  flex-shrink: 0;
+  width: 280px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
   border: 3px solid #ff9900;
-  box-shadow: 0 0 10px #ff9900;
-  transition: transform 0.3s ease;
+  box-shadow: 0 0 15px #ff9900;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 
 .gallery img:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 20px #ffcc66;
+  box-shadow: 0 0 25px #ffcc66;
 }
