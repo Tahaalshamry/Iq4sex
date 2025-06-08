@@ -5,7 +5,6 @@ body {
   color: #f5f5f1;
   font-family: "Arial", sans-serif;
   text-align: center;
-  overflow-x: hidden; /* يمنع التمرير الأفقي للصفحة */
 }
 
 /* شريط علوي (Navbar) */
@@ -21,9 +20,6 @@ body {
 .navbar .container {
   max-width: 900px;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 0 15px;
 }
 
@@ -32,18 +28,6 @@ body {
   font-weight: bold;
   color: #ff9900;
   user-select: none;
-}
-
-.stats {
-  display: flex;
-  gap: 25px;
-  font-size: 1rem;
-  color: #f5f5f1;
-}
-
-.stat i {
-  margin-left: 8px;
-  color: #ff9900;
 }
 
 /* عنوان الصفحة */
@@ -55,45 +39,54 @@ h1 {
   text-shadow: 1px 1px 2px black;
 }
 
-/* معرض الصور أفقي مع تمرير */
+/* معرض الصور عمودي */
 .gallery {
-  display: flex;
-  overflow-x: auto;
-  gap: 20px;
-  padding: 10px 20px 40px;
   max-width: 900px;
   margin: 0 auto 40px;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+  padding: 0 15px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
-.gallery::-webkit-scrollbar {
-  height: 10px;
-}
-
-.gallery::-webkit-scrollbar-thumb {
-  background-color: #ff9900;
-  border-radius: 10px;
-}
-
-.gallery::-webkit-scrollbar-track {
-  background-color: #222;
-  border-radius: 10px;
-}
-
-.gallery img {
-  flex-shrink: 0;
-  width: 280px;
-  height: 400px;
-  object-fit: cover;
+.item {
+  background-color: #1e1e1e;
   border-radius: 12px;
-  border: 3px solid #ff9900;
+  padding: 10px;
   box-shadow: 0 0 15px #ff9900;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
+}
+
+.item:hover {
+  box-shadow: 0 0 25px #ffcc66;
+}
+
+.item img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 3px solid #ff9900;
+  object-fit: cover;
   cursor: pointer;
 }
 
-.gallery img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px #ffcc66;
+/* إحصائيات المشاهدات واللايكات تحت كل صورة */
+.stats {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 25px;
+  font-size: 1.1rem;
+  color: #f5f5f1;
+}
+
+.stats span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stats i {
+  color: #ff9900;
+  font-size: 1.2rem;
 }
