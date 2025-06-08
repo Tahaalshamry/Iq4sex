@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>Xarab - معرض</title>
+  <meta charset="UTF-8" />
+  <title>Xarab - معرض الصور والفيديو</title>
   <style>
     body {
       background-color: #111;
@@ -28,19 +28,20 @@
       padding: 20px;
     }
 
-    .video-box {
+    .media-box {
       background-color: #222;
       border-radius: 10px;
       padding: 10px;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.5);
       width: 90%;
       max-width: 720px;
     }
 
-    video {
+    video, img {
       width: 100%;
       border-radius: 10px;
+      display: block;
     }
 
     .meta {
@@ -50,44 +51,16 @@
       font-size: 14px;
       color: #aaa;
     }
-
-    .gallery {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      width: 90%;
-      max-width: 720px;
-    }
-
-    .image-box {
-      background-color: #222;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
-
-    .image-box img {
-      width: 100%;
-      display: block;
-    }
-
-    .meta-img {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-      font-size: 14px;
-      color: #aaa;
-    }
   </style>
 </head>
 <body>
   <header>Xarab</header>
 
   <div class="container">
-    <!-- الفيديو -->
-    <div class="video-box">
+    <!-- Video -->
+    <div class="media-box">
       <video controls autoplay muted>
-        <source src="https://files.catbox.moe/do6qej.mpg" type="video/mpeg">
+        <source src="https://files.catbox.moe/do6qej.mpg" type="video/mpeg" />
         المتصفح لا يدعم تشغيل الفيديو.
       </video>
       <div class="meta">
@@ -96,35 +69,24 @@
       </div>
     </div>
 
-    <!-- الصور -->
-    <div class="gallery">
-      <!-- كرر هذا البلوك لأي صورة تريد إضافتها -->
-      <div class="image-box">
-        <img src="https://files.catbox.moe/g0eps5.jpeg" alt="صورة 1">
-        <div class="meta-img">
-          <span>👁️ 5K</span>
-          <span>❤️ 1K</span>
+    <!-- Images -->
+    <!-- الصور الـ 20 -->
+    ${[
+      "g0eps5.jpeg", "42er2x.jpeg", "qu8rzl.jpeg", "wywkdu.jpeg",
+      "c75cf9.webp", "pvl5js.jpeg", "dqbuy7.jpeg", "0df9c9.jpeg",
+      "7ac2pq.jpeg", "34ccz9.jpeg", "9jq7r2.jpeg", "y2odyx.jpeg",
+      "2vc407.jpeg", "qrq01z.jpeg", "pdwb8t.jpeg", "y5jcie.jpeg",
+      "h9ow8i.jpeg", "unitmu.jpeg", "s4z666.jpeg", "ra7ns3.jpeg",
+      "5ss93n.jpeg"
+    ].map(file => `
+      <div class="media-box">
+        <img src="https://files.catbox.moe/${file}" alt="صورة" />
+        <div class="meta">
+          <span>👁️ ${Math.floor(Math.random()*10 + 1)}K</span>
+          <span>❤️ ${Math.floor(Math.random()*2 + 1)}K</span>
         </div>
       </div>
-
-      <div class="image-box">
-        <img src="https://files.catbox.moe/42er2x.jpeg" alt="صورة 2">
-        <div class="meta-img">
-          <span>👁️ 4.7K</span>
-          <span>❤️ 900</span>
-        </div>
-      </div>
-
-      <div class="image-box">
-        <img src="https://files.catbox.moe/qu8rzl.jpeg" alt="صورة 3">
-        <div class="meta-img">
-          <span>👁️ 6.1K</span>
-          <span>❤️ 1.2K</span>
-        </div>
-      </div>
-
-      <!-- أضف المزيد من الصور بنفس الشكل -->
-    </div>
+    `).join("")}
   </div>
 </body>
 </html>
