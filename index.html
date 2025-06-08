@@ -3,130 +3,123 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Xarab</title>
+<title>Xarab - معرض الصور</title>
 <style>
-  /* خلفية مع تدرج لوني */
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    background: linear-gradient(135deg, #1e1e2f, #3a3a5a);
-    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #eee;
     overflow-y: scroll;
-    scroll-behavior: smooth;
   }
   header {
-    background-color: #ff9900;
-    padding: 18px 0;
-    text-align: center;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    box-shadow: 0 3px 8px rgba(255, 153, 0, 0.7);
     position: sticky;
     top: 0;
-    z-index: 1000;
+    background: #1f1f1f;
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #ff9900;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(255,153,0,0.3);
   }
-  #gallery {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 0 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+  .gallery {
+    max-width: 960px;
+    margin: 1rem auto 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.3rem;
+    padding: 0 1rem;
   }
-  .item {
-    background: rgba(255 255 255 / 0.05);
-    border-radius: 22px;
-    box-shadow:
-      0 8px 15px rgba(255, 153, 0, 0.2),
-      0 12px 24px rgba(255, 153, 0, 0.15);
-    padding: 18px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .item:hover {
-    transform: translateY(-12px);
-    box-shadow:
-      0 20px 35px rgba(255, 153, 0, 0.5),
-      0 30px 45px rgba(255, 153, 0, 0.35);
-  }
-  .item img {
-    max-width: 100%;
+  .card {
+    background: #222;
     border-radius: 20px;
-    box-shadow:
-      0 12px 30px rgba(255, 153, 0, 0.6);
-    object-fit: cover;
-    height: 320px;
-    width: 100%;
-    filter: drop-shadow(0 0 8px #ff9900aa);
+    box-shadow: 0 10px 30px rgba(255, 153, 0, 0.15);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .stats {
-    margin-top: 14px;
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255, 153, 0, 0.35);
+  }
+  .card img {
     width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #333;
+    filter: drop-shadow(0 2px 6px rgba(255, 153, 0, 0.4));
+    border-radius: 20px 20px 0 0;
+    transition: filter 0.3s ease;
+  }
+  .card img:hover {
+    filter: drop-shadow(0 6px 10px rgba(255, 153, 0, 0.8));
+  }
+  .info {
+    padding: 0.8rem 1rem;
     display: flex;
     justify-content: space-between;
-    font-size: 16px;
-    color: #ffcc66;
-    font-weight: 600;
-    letter-spacing: 0.8px;
+    font-size: 0.9rem;
+    color: #ccc;
+    user-select: none;
   }
-  .stats span {
+  .info span {
     display: flex;
     align-items: center;
     gap: 6px;
   }
-  .stats span svg {
-    width: 20px;
-    height: 20px;
-    fill: #ffcc66;
+  .info span svg {
+    fill: #ff9900;
+    width: 18px;
+    height: 18px;
   }
 </style>
 </head>
 <body>
   <header>Xarab</header>
-  <div id="gallery"></div>
+  <main class="gallery" id="gallery"></main>
 
 <script>
-const media = [
-  { type: "image", src: "https://files.catbox.moe/g0eps5.jpeg", views: "120K", likes: "8.4K" },
-  { type: "image", src: "https://files.catbox.moe/42er2x.jpeg", views: "98K", likes: "7.1K" },
-  { type: "image", src: "https://files.catbox.moe/qu8rzl.jpeg", views: "105K", likes: "6.3K" },
-  { type: "image", src: "https://files.catbox.moe/wywkdu.jpeg", views: "85.2K", likes: "5.9K" },
-  { type: "image", src: "https://files.catbox.moe/c75cf9.webp", views: "130K", likes: "9.1K" },
-  { type: "image", src: "https://files.catbox.moe/pvl5js.jpeg", views: "110K", likes: "7.5K" },
-  { type: "image", src: "https://files.catbox.moe/dqbuy7.jpeg", views: "90K", likes: "6.7K" },
-  { type: "image", src: "https://files.catbox.moe/0df9c9.jpeg", views: "95K", likes: "6.9K" },
-  { type: "image", src: "https://files.catbox.moe/7ac2pq.jpeg", views: "100K", likes: "7.2K" },
-  { type: "image", src: "https://files.catbox.moe/34ccz9.jpeg", views: "115K", likes: "7.8K" },
-  { type: "image", src: "https://files.catbox.moe/9jq7r2.jpeg", views: "82K", likes: "5.4K" },
-  { type: "image", src: "https://files.catbox.moe/y2odyx.jpeg", views: "88K", likes: "6.1K" },
-  { type: "image", src: "https://files.catbox.moe/2vc407.jpeg", views: "92K", likes: "6.5K" },
-  { type: "image", src: "https://files.catbox.moe/qrq01z.jpeg", views: "101K", likes: "7.3K" },
-  { type: "image", src: "https://files.catbox.moe/pdwb8t.jpeg", views: "87K", likes: "5.9K" },
-  { type: "image", src: "https://files.catbox.moe/y5jcie.jpeg", views: "120K", likes: "8.2K" },
-  { type: "image", src: "https://files.catbox.moe/h9ow8i.jpeg", views: "97K", likes: "6.8K" },
-  { type: "image", src: "https://files.catbox.moe/unitmu.jpeg", views: "80K", likes: "5.3K" },
-  { type: "image", src: "https://files.catbox.moe/s4z666.jpeg", views: "105K", likes: "7.4K" },
-  { type: "image", src: "https://files.catbox.moe/ra7ns3.jpeg", views: "93K", likes: "6.6K" },
-  { type: "image", src: "https://files.catbox.moe/5ss93n.jpeg", views: "108K", likes: "7.9K" }
-];
+  const images = [
+    "https://files.catbox.moe/g0eps5.jpeg",
+    "https://files.catbox.moe/42er2x.jpeg",
+    "https://files.catbox.moe/qu8rzl.jpeg",
+    "https://files.catbox.moe/wywkdu.jpeg",
+    "https://files.catbox.moe/c75cf9.webp",
+    "https://files.catbox.moe/pvl5js.jpeg",
+    "https://files.catbox.moe/dqbuy7.jpeg",
+    "https://files.catbox.moe/0df9c9.jpeg",
+    "https://files.catbox.moe/7ac2pq.jpeg",
+    "https://files.catbox.moe/34ccz9.jpeg",
+    "https://files.catbox.moe/9jq7r2.jpeg",
+    "https://files.catbox.moe/y2odyx.jpeg",
+    "https://files.catbox.moe/2vc407.jpeg",
+    "https://files.catbox.moe/qrq01z.jpeg",
+    "https://files.catbox.moe/pdwb8t.jpeg",
+    "https://files.catbox.moe/y5jcie.jpeg",
+    "https://files.catbox.moe/h9ow8i.jpeg",
+    "https://files.catbox.moe/unitmu.jpeg",
+    "https://files.catbox.moe/s4z666.jpeg",
+    "https://files.catbox.moe/ra7ns3.jpeg",
+    "https://files.catbox.moe/5ss93n.jpeg"
+  ];
 
-const container = document.getElementById("gallery");
+  const gallery = document.getElementById("gallery");
 
-media.forEach(item => {
-  const div = document.createElement("div");
-  div.className = "item";
-  div.innerHTML = `
-    <img src="${item.src}" alt="Media Image" loading="lazy" />
-    <div class="stats">
-      <span>👁️ ${item.views}</span>
-      <span>❤️ ${item.likes}</span>
-    </div>
-  `;
-  container.appendChild(div);
-});
+  images.forEach((src, i) => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <img src="${src}" alt="صورة ${i + 1}" loading="lazy" />
+      <div class="info">
+        <span>👁️ 1234</span>
+        <span>👍 567</span>
+      </div>
+    `;
+    gallery.appendChild(card);
+  });
 </script>
 </body>
 </html>
