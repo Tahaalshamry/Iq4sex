@@ -1,62 +1,130 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Xarab - معرض الفيديوهات</title>
+  <meta charset="UTF-8">
+  <title>Xarab - معرض</title>
   <style>
     body {
+      background-color: #111;
+      color: white;
       font-family: Arial, sans-serif;
-      background: #121212;
-      color: #eee;
       margin: 0;
       padding: 0;
+    }
+
+    header {
+      background-color: #000;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .container {
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-    header {
-      background-color: #ff9900;
-      width: 100%;
-      padding: 15px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #000;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    main {
-      max-width: 900px;
-      width: 100%;
       padding: 20px;
     }
-    .video-container {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-      padding-top: 25px;
-      height: 0;
+
+    .video-box {
+      background-color: #222;
+      border-radius: 10px;
+      padding: 10px;
       margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 720px;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 90%;
+      max-width: 720px;
+    }
+
+    .image-box {
+      background-color: #222;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 0 15px rgba(255,153,0,0.7);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
+
+    .image-box img {
       width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 10px;
+      display: block;
+    }
+
+    .meta-img {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      font-size: 14px;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <header>Xarab - معرض الفيديوهات</header>
-  <main>
-    <div class="video-container">
-      <iframe src="https://www.pornhub.com/embed/68420206b5aa7" allowfullscreen scrolling="no"></iframe>
+  <header>Xarab</header>
+
+  <div class="container">
+    <!-- الفيديو -->
+    <div class="video-box">
+      <video controls autoplay muted>
+        <source src="https://files.catbox.moe/do6qej.mpg" type="video/mpeg">
+        المتصفح لا يدعم تشغيل الفيديو.
+      </video>
+      <div class="meta">
+        <span>👁️ 12K مشاهدات</span>
+        <span>❤️ 2.3K إعجاب</span>
+      </div>
     </div>
-  </main>
+
+    <!-- الصور -->
+    <div class="gallery">
+      <!-- كرر هذا البلوك لأي صورة تريد إضافتها -->
+      <div class="image-box">
+        <img src="https://files.catbox.moe/g0eps5.jpeg" alt="صورة 1">
+        <div class="meta-img">
+          <span>👁️ 5K</span>
+          <span>❤️ 1K</span>
+        </div>
+      </div>
+
+      <div class="image-box">
+        <img src="https://files.catbox.moe/42er2x.jpeg" alt="صورة 2">
+        <div class="meta-img">
+          <span>👁️ 4.7K</span>
+          <span>❤️ 900</span>
+        </div>
+      </div>
+
+      <div class="image-box">
+        <img src="https://files.catbox.moe/qu8rzl.jpeg" alt="صورة 3">
+        <div class="meta-img">
+          <span>👁️ 6.1K</span>
+          <span>❤️ 1.2K</span>
+        </div>
+      </div>
+
+      <!-- أضف المزيد من الصور بنفس الشكل -->
+    </div>
+  </div>
 </body>
 </html>
