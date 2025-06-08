@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>معرضي الخاص</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <title>معرض الصور</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>معرض الصور والفيديوهات</h1>
-    </header>
-    <div id="gallery"></div>
-    <script src="scripts/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <h1>معرض الصور</h1>
+    <div class="gallery">
+        <!-- الصورة الأولى -->
+        <img src="https://files.catbox.moe/abc123.jpg" alt="صورة 1">
+        
+        <!-- الصورة الثانية -->
+        <img src="https://files.catbox.moe/xyz456.jpg" alt="صورة 2">
+    </div>
 </body>
 </html>
