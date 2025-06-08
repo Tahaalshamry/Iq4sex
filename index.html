@@ -1,192 +1,121 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
   <title>Xarab - معرض الصور والفيديو</title>
   <style>
-    /* Reset */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
-      background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #eee;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      overflow-y: scroll;
-      scroll-behavior: smooth;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
     }
 
     header {
-      position: sticky;
-      top: 0;
-      background: rgba(20, 20, 20, 0.8);
-      backdrop-filter: saturate(180%) blur(10px);
-      padding: 15px 20px;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #f9a825;
-      box-shadow: 0 2px 10px rgba(255, 168, 0, 0.3);
-      z-index: 100;
+      background-color: #222;
+      padding: 15px;
       text-align: center;
-      letter-spacing: 2px;
-      user-select: none;
-    }
-
-    main {
-      max-width: 1000px;
-      margin: 20px auto 40px;
-      padding: 0 15px;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     }
 
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
     }
 
-    .item {
-      background: rgba(255 255 255 / 0.1);
-      border-radius: 20px;
-      box-shadow:
-        0 8px 24px rgb(255 255 255 / 0.05),
-        inset 0 0 0 1px rgb(255 255 255 / 0.1);
-      overflow: hidden;
-      position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      backdrop-filter: saturate(180%) blur(12px);
-      cursor: pointer;
-    }
-    .item:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow:
-        0 20px 40px rgb(255 168 0 / 0.4),
-        inset 0 0 0 1px rgb(255 255 255 / 0.2);
-      z-index: 10;
+    .card {
+      background: #1c1c1c;
+      border-radius: 12px;
+      padding: 10px;
+      margin-bottom: 20px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s;
     }
 
-    .item img,
-    .item video {
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    .card img,
+    .card iframe {
       width: 100%;
-      display: block;
-      border-radius: 20px;
-      object-fit: cover;
-      height: 180px;
-      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
-      transition: filter 0.3s ease;
-    }
-    .item:hover img,
-    .item:hover video {
-      filter: drop-shadow(0 8px 10px rgba(255,168,0,0.8));
+      border-radius: 8px;
     }
 
     .info {
-      position: absolute;
-      bottom: 12px;
-      left: 12px;
-      color: #f9a825;
-      font-weight: 600;
-      font-size: 0.9rem;
       display: flex;
-      gap: 15px;
-      text-shadow: 0 0 6px rgba(0,0,0,0.7);
-      user-select: none;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 14px;
+      color: #ccc;
     }
-
-    .info span {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .icon {
-      font-size: 1.1rem;
-      line-height: 1;
-    }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #1a1a1a;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #f9a825;
-      border-radius: 10px;
-    }
-
   </style>
 </head>
 <body>
-
-<header>Xarab</header>
-
-<main>
+  <header>Xarab</header>
   <div class="gallery" id="gallery"></div>
-</main>
 
-<script>
-  const data = [
-    { type: "image", src: "https://files.catbox.moe/g0eps5.jpeg", views: 100, likes: 20 },
-    { type: "image", src: "https://files.catbox.moe/42er2x.jpeg", views: 80, likes: 12 },
-    { type: "image", src: "https://files.catbox.moe/qu8rzl.jpeg", views: 90, likes: 17 },
-    { type: "image", src: "https://files.catbox.moe/wywkdu.jpeg", views: 130, likes: 30 },
-    { type: "image", src: "https://files.catbox.moe/c75cf9.webp", views: 110, likes: 27 },
-    { type: "image", src: "https://files.catbox.moe/pvl5js.jpeg", views: 75, likes: 15 },
-    { type: "image", src: "https://files.catbox.moe/dqbuy7.jpeg", views: 60, likes: 9 },
-    { type: "image", src: "https://files.catbox.moe/0df9c9.jpeg", views: 120, likes: 26 },
-    { type: "image", src: "https://files.catbox.moe/7ac2pq.jpeg", views: 90, likes: 21 },
-    { type: "image", src: "https://files.catbox.moe/34ccz9.jpeg", views: 65, likes: 14 },
-    { type: "image", src: "https://files.catbox.moe/9jq7r2.jpeg", views: 95, likes: 20 },
-    { type: "image", src: "https://files.catbox.moe/y2odyx.jpeg", views: 55, likes: 11 },
-    { type: "image", src: "https://files.catbox.moe/2vc407.jpeg", views: 100, likes: 19 },
-    { type: "image", src: "https://files.catbox.moe/qrq01z.jpeg", views: 70, likes: 16 },
-    { type: "image", src: "https://files.catbox.moe/pdwb8t.jpeg", views: 85, likes: 18 },
-    { type: "image", src: "https://files.catbox.moe/y5jcie.jpeg", views: 60, likes: 13 },
-    { type: "image", src: "https://files.catbox.moe/h9ow8i.jpeg", views: 75, likes: 17 },
-    { type: "image", src: "https://files.catbox.moe/unitmu.jpeg", views: 105, likes: 22 },
-    { type: "image", src: "https://files.catbox.moe/s4z666.jpeg", views: 90, likes: 25 },
-    { type: "image", src: "https://files.catbox.moe/ra7ns3.jpeg", views: 110, likes: 30 },
-    { type: "image", src: "https://files.catbox.moe/5ss93n.jpeg", views: 95, likes: 21 },
-    { type: "video", src: "https://files.catbox.moe/do6qej.mpg", views: 220, likes: 60 }
-  ];
+  <script>
+    const mediaData = [
+      { type: "image", url: "https://files.catbox.moe/g0eps5.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/42er2x.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/qu8rzl.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/wywkdu.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/c75cf9.webp" },
+      { type: "image", url: "https://files.catbox.moe/pvl5js.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/dqbuy7.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/0df9c9.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/7ac2pq.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/34ccz9.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/9jq7r2.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/y2odyx.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/2vc407.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/qrq01z.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/pdwb8t.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/y5jcie.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/h9ow8i.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/unitmu.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/s4z666.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/ra7ns3.jpeg" },
+      { type: "image", url: "https://files.catbox.moe/5ss93n.jpeg" },
+      {
+        type: "video",
+        url: "https://tahaalshamry.github.io/Iframe/embed.html?url=https%3A%2F%2Fxhamster.com%2Fvideos%2Froommate-loves-it-when-i-fuck-her-hard-anny-walker-xhexQpy%3Futm_source%3Dext_shared%26utm_medium%3Dreferral%26utm_campaign%3Dlink" // الصق هنا رابط فيديو YouTube المضمن
+      }
+    ];
 
-  const gallery = document.getElementById("gallery");
+    const gallery = document.getElementById("gallery");
 
-  data.forEach(item => {
-    const div = document.createElement("div");
-    div.classList.add("item");
+    mediaData.forEach(media => {
+      const card = document.createElement("div");
+      card.className = "card";
 
-    if(item.type === "image"){
-      const img = document.createElement("img");
-      img.src = item.src;
-      img.loading = "lazy";
-      div.appendChild(img);
-    } else if(item.type === "video"){
-      const video = document.createElement("video");
-      video.src = item.src;
-      video.controls = true;
-      video.preload = "metadata";
-      video.style.height = "180px";
-      video.style.borderRadius = "20px";
-      div.appendChild(video);
-    }
+      if (media.type === "image") {
+        card.innerHTML = `
+          <img src="${media.url}" loading="lazy">
+          <div class="info">
+            <span>👍 1.2K</span>
+            <span>👁️ 5.3K</span>
+          </div>
+        `;
+      } else if (media.type === "video") {
+        card.innerHTML = `
+          <iframe src="${media.url}" frameborder="0" allowfullscreen></iframe>
+          <div class="info">
+            <span>👍 3.1K</span>
+            <span>👁️ 10.4K</span>
+          </div>
+        `;
+      }
 
-    const info = document.createElement("div");
-    info.classList.add("info");
-    info.innerHTML = `
-      <span><span class="icon">👁️</span> ${item.views}</span>
-      <span><span class="icon">❤️</span> ${item.likes}</span>
-    `;
-    div.appendChild(info);
-
-    gallery.appendChild(div);
-  });
-</script>
-
+      gallery.appendChild(card);
+    });
+  </script>
 </body>
 </html>
