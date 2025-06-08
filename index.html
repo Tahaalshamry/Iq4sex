@@ -1,113 +1,113 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Xarab Gallery</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #121212;
-    color: #eee;
-    margin: 0; padding: 0;
-  }
-  header {
-    position: sticky;
-    top: 0;
-    background: #1f1f1f;
-    padding: 12px 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.7);
-    z-index: 1000;
-  }
-  .gallery {
-    max-width: 900px;
-    margin: 20px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-  }
-  .media-card {
-    position: relative;
-    background: #222;
-    border-radius: 15px;
-    box-shadow:
-      0 10px 15px rgba(0,0,0,0.4),
-      0 4px 6px rgba(0,0,0,0.3);
-    overflow: hidden;
-    transition: transform 0.3s ease;
-  }
-  .media-card:hover {
-    transform: translateY(-5px);
-    box-shadow:
-      0 20px 25px rgba(0,0,0,0.6),
-      0 10px 10px rgba(0,0,0,0.4);
-  }
-  img, video {
-    width: 100%;
-    display: block;
-    border-radius: 15px;
-    object-fit: cover;
-  }
-  .info-bar {
-    position: absolute;
-    bottom: 8px;
-    left: 10px;
-    right: 10px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    color: #ddd;
-    background: rgba(0,0,0,0.5);
-    padding: 6px 12px;
-    border-radius: 10px;
-    backdrop-filter: blur(6px);
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>Xarab - معرض الصور</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: white;
+    }
+
+    header {
+      background-color: #1f1f1f;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .media-card {
+      background-color: #1e1e1e;
+      margin: 20px 0;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 500px;
+      transition: transform 0.3s;
+    }
+
+    .media-card:hover {
+      transform: scale(1.02);
+    }
+
+    .media-card img {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+      loading: lazy;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 4px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .meta span {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .meta span::before {
+      margin-left: 6px;
+    }
+
+    .views::before {
+      content: '👁️';
+    }
+
+    .likes::before {
+      content: '❤️';
+    }
+  </style>
 </head>
 <body>
 
-<header>Xarab</header>
-<div class="gallery" id="gallery"></div>
+  <header>Xarab</header>
 
-<script type="module">
-  import { mediaItems } from './data.js';
+  <div class="gallery" id="gallery"></div>
 
-  const gallery = document.getElementById('gallery');
+  <script src="data.js"></script>
+  <script>
+    const container = document.getElementById("gallery");
 
-  mediaItems.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'media-card';
+    mediaData.forEach((item, index) => {
+      if (item.type === "image") {
+        const card = document.createElement("div");
+        card.className = "media-card";
 
-    if (item.type === 'image') {
-      const img = document.createElement('img');
-      img.src = item.src;
-      img.alt = item.alt;
-      img.loading = 'lazy';
-      card.appendChild(img);
-    } else if (item.type === 'video') {
-      const video = document.createElement('video');
-      video.controls = true;
-      video.preload = 'none';  // تأجيل تحميل الفيديو
-      video.poster = 'https://files.catbox.moe/qrq01z.jpeg'; // صورة بديلاً قبل التشغيل
-      const source = document.createElement('source');
-      source.src = item.src;
-      source.type = 'video/mp4';
-      video.appendChild(source);
-      card.appendChild(video);
-    }
+        const img = document.createElement("img");
+        img.src = item.src;
+        img.alt = `صورة ${index + 1}`;
+        img.loading = "lazy";
 
-    // معلومات ثابتة
-    const info = document.createElement('div');
-    info.className = 'info-bar';
-    info.innerHTML = `<span>مشاهدات: 1234</span><span>لايكات: 567</span>`;
-    card.appendChild(info);
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.innerHTML = `
+          <span class="views">${Math.floor(Math.random() * 1000)} مشاهدة</span>
+          <span class="likes">${Math.floor(Math.random() * 300)} إعجاب</span>
+        `;
 
-    gallery.appendChild(card);
-  });
-</script>
+        card.appendChild(img);
+        card.appendChild(meta);
+        container.appendChild(card);
+      }
+    });
+  </script>
 
 </body>
 </html>
